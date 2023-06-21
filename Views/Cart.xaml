@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views ="clr-namespace:Pizza.Views"
+             xmlns:vm="clr-namespace:Pizza.ViewModels"
+             x:Class="Pizza.Views.Cart" Title="Корзина">
+    <ContentPage.BindingContext>
+        <vm:CartViewModel />
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="*,60">
+        <CollectionView ItemsSource="{Binding Client.Cart}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <views:CartView Product="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Frame IsVisible="{Binding CartIsEmpty}" CornerRadius="0">
+            <Label Text="Ваша корзина пуста!" FontSize="22" HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+        </Frame>
+        <Button Text="{Binding OrderSum, StringFormat='Оформить заказ ({0}р.)'}" Grid.Row="1" IsVisible="{Binding CanCreateOrder}"
+            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=CreateOrderCommand}"
+            CommandParameter="{Binding Client}" />
+    </Grid>
+</ContentPage>

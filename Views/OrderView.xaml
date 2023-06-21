@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views ="clr-namespace:Pizza.Views"
+             x:Class="Pizza.Views.OrderView">
+    <VerticalStackLayout Margin="4">
+        <Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ExpandFrame"/>
+            </Frame.GestureRecognizers>
+            <Grid ColumnDefinitions="*,20">
+                <HorizontalStackLayout>
+                    <Label Text="{Binding CreatedAt, StringFormat='Заказ от {0}'}"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Label Text="{Binding Amount, StringFormat=' на сумму {0} р.'}"
+                       HorizontalOptions="StartAndExpand"/>
+                </HorizontalStackLayout>
+                <Path Fill="{StaticResource Primary}" Grid.Column="1"
+                      Data="M 15.2043 2.026 L 8.5542 8.6959 C 8.475 8.775 8.3893 8.8309 8.297 8.8636 C 8.2046 8.8969 8.1056 8.9136 8 8.9136 C 7.8945 8.9136 7.7956 8.8969 7.7032 8.8636 C 7.6109 8.8309 7.5251 8.775 7.4459 8.6959 L 0.7761 2.026 C 0.5914 1.8413 0.499 1.6104 0.499 1.3333 C 0.499 1.0562 0.598 0.8187 0.7959 0.6208 C 0.9938 0.4229 1.2247 0.324 1.4886 0.324 C 1.7525 0.324 1.9834 0.4229 2.1813 0.6208 L 8 6.4396 L 13.8188 0.6208 C 14.0036 0.4361 14.231 0.3438 14.5013 0.3438 C 14.772 0.3438 15.0063 0.4427 15.2043 0.6406 C 15.4022 0.8385 15.5011 1.0694 15.5011 1.3333 C 15.5011 1.5972 15.4022 1.8281 15.2043 2.026 Z"
+                      StrokeThickness="10" HorizontalOptions="End" 
+                      x:Name="Expander"/>
+            </Grid>
+        </Frame>
+        <Frame Padding="5"
+               HeightRequest="0"
+               IsVisible="{Binding IsExpand}" 
+               x:Name="CartFrame">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="{Binding OrderState, StringFormat='Статус заказа - {0}'}" />
+                <Label Text="{Binding DeliveryAddress, StringFormat='Адрес - {0}'}" />
+                <Label Text="{Binding DeliveryDate, StringFormat='Дата доставки - {0}'}" />
+                <CollectionView 
+                    HeightRequest="0" ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding Products}" 
+                    x:Name="CartCell">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout 
+                                Spacing="5" Margin="5"
+                                HorizontalOptions="FillAndExpand">
+                                <Image Source="{Binding ImagePath}"
+                                   VerticalOptions="Center"
+                                   WidthRequest="50" />
+                                <Label Text="{Binding Name}" 
+                                           FontAttributes="Bold" 
+                                           FontSize="16" 
+                                           VerticalTextAlignment="Center"
+                                           HorizontalOptions="FillAndExpand" />
+                                <Label Text="{Binding CountInCart, StringFormat='{0} шт.'}"  
+                                            FontAttributes="Bold" 
+                                            FontSize="16" 
+                                            VerticalTextAlignment="Center"/>
+                                <Label Text="{Binding Summ, StringFormat='на сумму {0} р.'}"  
+                                            FontAttributes="Bold" 
+                                            FontSize="16" 
+                                            VerticalTextAlignment="Center"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</ContentView>

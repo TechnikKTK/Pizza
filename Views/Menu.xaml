@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pizza.Views.Menu"
+             xmlns:vm="clr-namespace:Pizza.ViewModels"
+             xmlns:views="clr-namespace:Pizza.Views"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame Padding="5" Margin="2">
+            <Grid ColumnDefinitions="*,10">
+                <SearchBar x:Name="myButton"
+                Placeholder="Введите товар" 
+                HorizontalOptions="FillAndExpand"
+                SearchCommand="{Binding SearchCommand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference myButton}}"/>
+                <ImageButton Source="icon_filter" 
+                             HorizontalOptions="End"
+                             Scale="0.8" Command="{Binding FilterCommand}" />
+            </Grid>
+        </Frame>
+        <HorizontalStackLayout Margin="5,2" Spacing="5" Grid.Row="1">
+            <Button Text="Пицца" 
+                    x:Name="pizza_filter" 
+                    WidthRequest="100" 
+                    Margin="2" 
+                    BorderColor="{StaticResource Primary}"
+                    BorderWidth="1"
+                    Style="{DynamicResource Toggle}" 
+                    Clicked="Pizza_Clicked" />
+            <Button Text="Напитки" 
+                    x:Name="drink_filter" 
+                    WidthRequest="100" Margin="2" 
+                    BorderColor="{StaticResource Primary}"
+                    BorderWidth="1"
+                    Style="{DynamicResource Toggle}" 
+                    Clicked="Drink_Clicked"/>
+            <Button Text="Соусы" 
+                    x:Name="sous_filter" 
+                    WidthRequest="100" 
+                    Margin="2" 
+                    BorderColor="{StaticResource Primary}"
+                    BorderWidth="1"
+                    Style="{DynamicResource Toggle}" 
+                    Clicked="Sous_Clicked"/>
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout 
+                Spacing="3"
+                BindableLayout.ItemsSource="{Binding FilterProducts}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <views:PizzaElement />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

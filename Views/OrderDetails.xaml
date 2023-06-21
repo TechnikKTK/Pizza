@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views ="clr-namespace:Pizza.Views"
+             xmlns:vm="clr-namespace:Pizza.ViewModels" NavigationPage.HasNavigationBar="False"
+             x:Class="Pizza.Views.OrderDetails" Title="Оформление заказа">
+    <ContentPage.BindingContext>
+        <vm:CartViewModel />
+    </ContentPage.BindingContext>
+        <Grid RowDefinitions="90*,10*">
+        <ScrollView>
+            <TableView Grid.Row="0" HasUnevenRows="True" x:Name="Table">
+                <TableRoot>
+                    <TableSection Title="Корзина">
+                        <ViewCell x:Name="CartCell">
+                            <CollectionView ItemsSource="{Binding Client.Cart}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <views:CartView Product="{Binding .}" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="ИТОГО">
+                        <TextCell Text="{Binding OrderSum, StringFormat='Заказ на сумму {0} руб.'}"
+                                  TextColor="{StaticResource Black}" />
+                    </TableSection>
+                    <TableSection Title="Доставка">
+                        <EntryCell Label="Имя_____"  Text="{Binding Client.FirstName }"  Height="40"/>
+                        <EntryCell Label="Фамилия_"  Text="{Binding Client.LastName }"  Height="40"/>
+                        <EntryCell Label="Телефон_"  Text="{Binding Client.Phone }"  Height="40"/>
+                        <EntryCell Label="Адрес___"  Text="{Binding Client.CurrentOrder.DeliveryAddress }" Height="40"/>
+                        <ViewCell Height="40">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
+                                <Label Text="Время доставки" VerticalTextAlignment="Center" />
+                                <DatePicker VerticalOptions="Center" Date="{Binding Client.CurrentOrder.DeliveryDate}" />
+                                <TimePicker VerticalOptions="Center" Time="{Binding Client.CurrentOrder.DeliveryTime}" />
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                        <ViewCell Height="40">
+                            <Button Text="{Binding Client.CurrentOrder.PaymentText,StringFormat='Cпособ оплаты ({0})'}" 
+                                HeightRequest="50" 
+                                CornerRadius="0" Margin="0,5" 
+                                Command="{Binding SetPaymentTypeCommand}" />
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </ScrollView>
+        <Button Text="Подтвердить" Grid.Row="2" IsVisible="{Binding CanCreateOrder}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=ConfirmOrderCommand}" />
+        </Grid>
+</ContentPage>

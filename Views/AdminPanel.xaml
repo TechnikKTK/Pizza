@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm ="clr-namespace:Pizza.ViewModels"
+             xmlns:views ="clr-namespace:Pizza.Views"
+             x:Class="Pizza.Views.AdminPanel">
+    <ContentPage.BindingContext>
+        <vm:AdminVewModel />
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="50,*">
+        <Frame Padding="10"
+            BorderColor="Transparent" CornerRadius="0" BackgroundColor="{StaticResource Primary}">
+            <Grid ColumnDefinitions="*,50">
+                <Label Text="Страница администратора" VerticalTextAlignment="Center"
+                       TextColor="{StaticResource White}"
+                       FontSize="20" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                <ImageButton Source="icon_exit"
+                             Grid.Column="1"
+                             Clicked="ExitClick" HorizontalOptions="EndAndExpand" />
+            </Grid>
+        </Frame>
+        <CollectionView ItemsSource="{Binding ListOrders}" Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminVewModel}}, Path=OpenOrderCommand}" 
+                                              CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding ID, StringFormat='Заказ № {0}'}"
+                           HorizontalOptions="StartAndExpand"/>
+                            <Label Text="{Binding CreatedAt, StringFormat=' от {0}'}"
+                           HorizontalOptions="StartAndExpand"/>
+                            <Label Text="{Binding Amount, StringFormat=' на сумму {0} р.'}"
+                           HorizontalOptions="StartAndExpand"/>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

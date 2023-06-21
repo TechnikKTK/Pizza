@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm ="clr-namespace:Pizza.ViewModels"
+             x:Class="Pizza.Views.CartView"
+             HeightRequest="60">
+    <Frame Padding="1" Margin="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="78*"/>
+                <ColumnDefinition Width="12*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding ImagePath}"
+                       VerticalOptions="Center"
+                       Aspect="AspectFit" Scale="0.9" />
+            <HorizontalStackLayout Grid.Column="1" Spacing="5"
+                       HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding Name}" 
+                       FontAttributes="Bold" 
+                       FontSize="16" 
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand" />
+                <Stepper Value="{Binding CountInCar}" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=IsEditableproduct}" 
+                     Minimum="1" WidthRequest="80"
+                     Maximum="100" 
+                     Increment="1" FlowDirection="MatchParent"
+                     HorizontalOptions="LayoutOptions.Center" 
+                     VerticalOptions="LayoutOptions.CenterAndExpand"
+                         ValueChanged="Stepper_ValueChanged"
+                      />
+                <Label Text="{Binding CountInCart, StringFormat='{0} шт.'}"  
+                       FontAttributes="Bold" 
+                       FontSize="16" 
+                       VerticalTextAlignment="Center"/>
+                <Label Text="{Binding Summ, StringFormat='{0} р.'}"  
+                       FontAttributes="Bold" 
+                       FontSize="16" 
+                       VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+            <Button Text="X" Grid.Column="2"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveFromCartCommand}"
+                        CommandParameter="{Binding .}" />
+        </Grid>
+    </Frame>
+</ContentView>

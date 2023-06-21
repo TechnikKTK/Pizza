@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pizza.ViewModels" NavigationPage.HasNavigationBar="False"
+             x:Class="Pizza.Views.PersonalPage"
+             Title="Личный кабинет">
+    <ContentPage.BindingContext>
+        <vm:CartViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_orders_white" Command="{Binding ShowOrdersCommand}" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <VerticalStackLayout Margin="10" Spacing="5" VerticalOptions="FillAndExpand">
+            <Frame Padding="10,5" Margin="5">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="tab_user" Aspect="AspectFit"/>
+                    <Entry Text="{Binding Client.FirstName}" Placeholder="Введите имя" Keyboard="Telephone"/>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Padding="10,5" Margin="5">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="tab_user" Aspect="AspectFit"/>
+                    <Entry Text="{Binding Client.LastName}" Placeholder="Введите фамилию" Keyboard="Telephone"/>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Padding="10,5" Margin="5">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="icon_mail" Aspect="AspectFit"/>
+                    <Entry Text="{Binding Client.Email}" Placeholder="Введите email" Keyboard="Telephone"/>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Padding="10,5" Margin="5">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="icon_phone" Aspect="AspectFit"/>
+                    <Entry Text="{Binding Client.Phone}" Placeholder="Введите телефон" Keyboard="Telephone"/>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Padding="10,5" Margin="5">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="icon_password" Aspect="AspectFit"/>
+                    <Entry Text="{Binding Client.Password}" Placeholder="Введите пароль" IsPassword="True"/>
+                </HorizontalStackLayout>
+            </Frame>
+            <Button Text="Сохранить" Command="{Binding AuthCommand}" HeightRequest="40" />
+            <Button Text="Выйти из аккаунта" Clicked="ExitClick" HeightRequest="40" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

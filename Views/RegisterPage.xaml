@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pizza.ViewModels"
+             x:Class="Pizza.Views.RegisterPage">
+    <ContentPage.BindingContext>
+        <vm:AuthViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid RowDefinitions="400, 100">
+            <VerticalStackLayout Margin="20,0" Spacing="20">
+                <Image Source="logo" Aspect="AspectFit" HeightRequest="100" />
+                <Frame>
+                    <HorizontalStackLayout Spacing="10">
+                        <Image Source="icon_phone" Aspect="AspectFit"/>
+                        <Entry Text="{Binding Client.Phone}" Placeholder="Введите телефон" Keyboard="Telephone"/>
+                    </HorizontalStackLayout>
+                </Frame>
+                <Frame>
+                    <HorizontalStackLayout Spacing="10">
+                        <Image Source="icon_password" Aspect="AspectFit"/>
+                        <Entry Text="{Binding Client.Password}" Placeholder="Введите пароль" IsPassword="True"/>
+                    </HorizontalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="EndAndExpand" >
+                <Button Text="Зарегистрироваться" HeightRequest="40" Command="{Binding RegisterCommand}" />
+                <Label Text="*Регистриуясь в приложении вы соглашаетесь с политикой"  FontSize="12" HorizontalOptions="Center" TextColor="{DynamicResource Gray400}" /> 
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

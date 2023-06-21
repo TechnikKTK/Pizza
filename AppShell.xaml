@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Pizza.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Pizza.Views"
+    xmlns:local="clr-namespace:Pizza"
+    Shell.FlyoutBehavior="Disabled">
+    <TabBar>
+        <Tab Title="Меню" Icon="tab_menu.png" Route="menu">
+            <ShellContent ContentTemplate="{DataTemplate views:Menu}" />
+        </Tab>
+        <Tab Title="Кабинет" Icon="tab_user.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PersonalPage}" />
+        </Tab>
+        <Tab Title="Корзина" Icon="tab_cart.png" Route="cart">
+            <ShellContent ContentTemplate="{DataTemplate views:Cart}" />
+        </Tab>
+    </TabBar>
+</Shell>

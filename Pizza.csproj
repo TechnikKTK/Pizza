@@ -1,0 +1,213 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-maccatalyst;net6.0-android31.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>Pizza</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Pizza</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.pizza</ApplicationId>
+		<ApplicationIdGuid>96fcb492-66f2-451e-8707-2d44f00c75e9</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">25.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <DebugSymbols>False</DebugSymbols>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>La Pizza</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.22621.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android31.0|AnyCPU'">
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <DebugSymbols>False</DebugSymbols>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android31.0|AnyCPU'">
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+
+		<!-- Splash Screen -->
+    <MauiSplashScreen Include="Resources\Splash\splash.png" BaseSize="300,221" Color="#FFFFFF" />
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\mipmap\appicon.png" />
+	  <None Remove="Platforms\Android\Resources\mipmap\appicon_round.png" />
+	  <None Remove="Resources\Images\icon_exit.png" />
+	  <None Remove="Resources\Images\icon_filter.png" />
+	  <None Remove="Resources\Images\icon_mail.png" />
+	  <None Remove="Resources\Images\icon_orders.png" />
+	  <None Remove="Resources\Images\icon_orders_white.png" />
+	  <None Remove="Resources\Images\icon_password.png" />
+	  <None Remove="Resources\Images\icon_phone.png" />
+	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\pizza\barbeku.png" />
+	  <None Remove="Resources\Images\pizza\chesnok.png" />
+	  <None Remove="Resources\Images\pizza\chesse.png" />
+	  <None Remove="Resources\Images\pizza\cola.png" />
+	  <None Remove="Resources\Images\pizza\derevnya.png" />
+	  <None Remove="Resources\Images\pizza\dushes.png" />
+	  <None Remove="Resources\Images\pizza\gavay.png" />
+	  <None Remove="Resources\Images\pizza\margarita.png" />
+	  <None Remove="Resources\Images\pizza\moreproduct.png" />
+	  <None Remove="Resources\Images\pizza\mors_brusnich.png" />
+	  <None Remove="Resources\Images\pizza\mors_smorod.png" />
+	  <None Remove="Resources\Images\pizza\ochotnichya.png" />
+	  <None Remove="Resources\Images\pizza\pepperoni.png" />
+	  <None Remove="Resources\Images\pizza\salyami.png" />
+	  <None Remove="Resources\Images\pizza\student.png" />
+	  <None Remove="Resources\Images\pizza\syr.png" />
+	  <None Remove="Resources\Images\pizza\vetchina.png" />
+	  <None Remove="Resources\Images\tab_cart.png" />
+	  <None Remove="Resources\Images\tab_login.png" />
+	  <None Remove="Resources\Images\tab_menu.png" />
+	  <None Remove="Resources\Images\tab_register.png" />
+	  <None Remove="Resources\Images\tab_user.png" />
+	  <None Remove="Resources\Splash\splash.png" />
+	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\pizza\barbeku.png" />
+	  <MauiImage Include="Resources\Images\pizza\chesnok.png" />
+	  <MauiImage Include="Resources\Images\pizza\chesse.png" />
+	  <MauiImage Include="Resources\Images\pizza\cola.png" />
+	  <MauiImage Include="Resources\Images\pizza\derevnya.png" />
+	  <MauiImage Include="Resources\Images\pizza\dushes.png" />
+	  <MauiImage Include="Resources\Images\pizza\gavay.png" />
+	  <MauiImage Include="Resources\Images\pizza\margarita.png" />
+	  <MauiImage Include="Resources\Images\pizza\moreproduct.png" />
+	  <MauiImage Include="Resources\Images\pizza\mors_brusnich.png" />
+	  <MauiImage Include="Resources\Images\pizza\mors_smorod.png" />
+	  <MauiImage Include="Resources\Images\pizza\ochotnichya.png" />
+	  <MauiImage Include="Resources\Images\pizza\pepperoni.png" />
+	  <MauiImage Include="Resources\Images\pizza\salyami.png" />
+	  <MauiImage Include="Resources\Images\pizza\student.png" />
+	  <MauiImage Include="Resources\Images\pizza\syr.png" />
+	  <MauiImage Include="Resources\Images\pizza\vetchina.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\splash.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="LoginShell.xaml.cs">
+	    <DependentUpon>LoginShell.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\AdminPanel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Cart.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CartView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Login.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="LoginShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Menu.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderForm.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PersonalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PizzaElement.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

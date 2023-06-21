@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm ="clr-namespace:Pizza.ViewModels"
+             x:Class="Pizza.Views.OrderForm"
+             Title="OrderForm">
+    <Grid RowDefinitions="80*,10*">
+        <ScrollView>
+            <TableView HasUnevenRows="True" x:Name="Table">
+                <TableRoot>
+                    <TableSection Title="Детали заказа">
+                        <ViewCell x:Name="CartCell">
+                            <CollectionView 
+                                HeightRequest="0" ItemSizingStrategy="MeasureAllItems"
+                                ItemsSource="{Binding Products}" 
+                                x:Name="CollectCell">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout 
+                                                Spacing="5" Margin="5"
+                                                HorizontalOptions="FillAndExpand">
+                                            <Image Source="{Binding ImagePath}"
+                                               VerticalOptions="Center"
+                                               WidthRequest="50" />
+                                            <Label Text="{Binding Name}" 
+                                                FontAttributes="Bold" 
+                                                FontSize="16" 
+                                                VerticalTextAlignment="Center"
+                                                HorizontalOptions="FillAndExpand" />
+                                            <Label Text="{Binding CountInCart, StringFormat='{0} шт.'}"  
+                                                FontAttributes="Bold" 
+                                                FontSize="16" 
+                                                VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding Summ, StringFormat='на сумму {0} р.'}"  
+                                                FontAttributes="Bold" 
+                                                FontSize="16" 
+                                                VerticalTextAlignment="Center"/>
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="ИТОГО">
+                        <TextCell Text="{Binding Amount, StringFormat='Заказ на сумму {0} руб.'}"
+                                  TextColor="{StaticResource Black}" />
+                    </TableSection>
+                    <TableSection Title="Доставка">
+                        <EntryCell Label="Телефон_"  Text="{Binding DeliveryPhone }" />
+                        <EntryCell Label="Адрес___"  Text="{Binding DeliveryAddress }" />
+                        <ViewCell Height="50">
+                            <HorizontalStackLayout  HeightRequest="50"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="Center" 
+                                                   Spacing="15" 
+                                                   >
+                                <Label Text="Время доставки " VerticalTextAlignment="Center" />
+                                <Label Text="{Binding DeliveryDate}" VerticalTextAlignment="Center" />
+                                <Label Text="{Binding DeliveryTime}" VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection>
+                        <ViewCell Height="50">
+                            <Button Text="{Binding OrderState, StringFormat='Сменить статус ({0})'}" 
+                                Margin="10,0" HeightRequest="50"
+                                VerticalOptions="FillAndExpand"
+                                Clicked="SetState"
+                                 />
+                        </ViewCell>                   
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </ScrollView>
+        <Button Text="Закрыть" Grid.Row="1" Clicked="Close" />
+    </Grid>
+</ContentPage>
